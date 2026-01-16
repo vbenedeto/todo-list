@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  background-color: rgb(255, 255, 255);
+}
+
+header {
+  padding: 30px;
+
+}
+
+#main-grid {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 75px 4fr;
+}
+
+#sidebar {
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 30px;
+  border: 3px solid black;
+}
+
+#projects-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-btn.active-project {
+  color: white;
+  background-color: black;
+}
+
+.project-btn {
+  cursor: pointer;
+}
+
+.project-btn:hover {
+  
+}
+
+#todos-display {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  align-self: center;
+}
+
+.todo-card {
+  border: 2px solid black;
+  padding: 10px 20px;
+}

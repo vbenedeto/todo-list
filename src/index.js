@@ -1,5 +1,7 @@
+import './styles.css';
 import { createTodo } from "./todo";
 import { createProject } from "./project";
+import { renderProjects, renderTodos } from "./displayController";
 
 const projects = [];
 
@@ -40,8 +42,11 @@ const myGeneralTodo2 = createTodo({
 generalProject.addTodo(myGeneralTodo1);
 generalProject.addTodo(myGeneralTodo2);
 
-console.log(defaultWorkProject);
-console.log(generalProject);
+projects.push(generalProject);
+projects.push(defaultWorkProject);
+
+renderProjects(projects, generalProject);
+renderTodos(generalProject);
 
 
 
