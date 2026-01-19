@@ -1,7 +1,6 @@
 
-export function renderProjects(projects, activeProject) {
+export function renderProjects(projects, activeProject, onProjectSelect) {
   const projectMenu = document.getElementById("projects-menu");
-
   projectMenu.textContent = "";
 
   projects.forEach((project) => {
@@ -14,20 +13,19 @@ export function renderProjects(projects, activeProject) {
     }
 
     projectMenu.appendChild(projectBtn);
-    
+
     projectBtn.addEventListener("click", () => {
       const allBtns = document.querySelectorAll(".project-btn");
       allBtns.forEach(btn => btn.classList.remove("active-project"));
-
       projectBtn.classList.add("active-project");
 
-      renderTodos(project);
+      onProjectSelect(project);
     });
   });
   return projects;
 }
 
-export function renderTodos(project) {
+export function renderTodos(project, onDelete) {
   const todoContainer = document.getElementById("todos-display");
   todoContainer.textContent = "";
 
@@ -39,7 +37,25 @@ export function renderTodos(project) {
     const todoCard = document.createElement("div");
     todoCard.classList.add("todo-card");
 
-    todoCard.innerHTML = `<h3>${todo.title}</h3> <p>${todo.description}</p>`;
+    todoCard.innerHTML = `<h3>${todo.title}</h3> <p>${todo.description}</p> <p>${todo.dueDate}</p> <p>${todo.priority}</p>`;
+
+    const deleteTodoBtn = document.createElement("button");
+    deleteTodoBtn.textContent = "Delete";
+
+    deleteTodoBtn.addEventListener("click", () => {
+      onDelete(todo.id);
+    })
+
+    todoCard.appendChild(deleteTodoBtn);
     todoContainer.appendChild(todoCard);
   });
+}
+
+export function setupModal() {
+  const dialog = document.getElementById("todo-dialog");
+  const openModalBtn = document.getElementById("add-todo");
+
+  openModalBtn.addEventListener("click", () => {
+    dialog.showModal();
+  })
 }

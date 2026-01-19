@@ -7,6 +7,12 @@ export function createProject(name) {
     todos,
     addTodo(todo) {
       todos.push(todo);
+    },
+    removeTodo(todoId) {
+      const index = todos.findIndex(todo => todo.id === todoId);
+      if (index !== -1) {
+        todos.splice(index, 1);
+      }
     }
   };
-}
+} 

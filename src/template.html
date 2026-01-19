@@ -16,8 +16,50 @@
 
     <header>
       <h1>My Todos</h1>
+      <button id="add-todo">Add Task</button>
     </header>
-    
+
+    <dialog id="todo-dialog">
+      <form id="todo-form" action="#">
+
+        <div class="field">
+          <label for="todoTitle">
+            Title
+          </label>
+          <input type="text" name="title" id="todoTitle" required>
+        </div>
+
+        <div class="field">
+          <label for="todoDescription">
+            Description
+          </label>
+          <input type="text" name="description" id="todoDescription">
+        </div>
+
+        <div class="field">
+          <label for="todoDueDate">Due Date</label>
+          <input type="date" name="dueDate" id="todoDueDate">
+        </div>
+
+        <div class="field">
+          <label for="todoPriority">
+            Priority
+          </label>
+          <select name="priority" id="todoPriority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div class="form-btns">
+          <button type="button" id="cancel-btn">Cancel</button>
+          <button type="submit" id="submit-btn">Add Todo</button>
+        </div>
+        
+      </form>
+    </dialog>
+
     <main id="todos-display"></main>
   </div>
 </body>
