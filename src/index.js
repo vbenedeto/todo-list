@@ -1,54 +1,37 @@
 import './styles.css';
 import { createTodo } from "./todo";
-import { createProject } from "./project";
-import { renderProjects, renderTodos } from "./displayController";
+import { renderProjects, renderTodos, setupModal } from "./displayController";
+import { initTodoForm } from './formHandler';
+import { getInitialProjects } from './initialData';
 
-const projects = [];
+// State
+const projects = getInitialProjects();
+let currentProject = projects[0];
 
-const generalProject = createProject("General");
-const defaultWorkProject = createProject("Work");
+// Handlers
+function refreshTasks() {
+  renderTodos(currentProject, handleDeleteTodo);
+}
 
-const myWorkTodo1 = createTodo({
-  title: "Finish Odin Project",
-  description: "Complete the Todo List assignment",
-  dueDate: "20-01-2026",
-  priority: "High"
+const handleDeleteTodo = (todoId) => {
+  currentProject.removeTodo(todoId);
+  refreshTasks();
+};
+
+// Initialization 
+setupModal();
+
+initTodoForm((formData) => {
+  const newTodo = createTodo(formData);
+  currentProject.addTodo(newTodo);
+  refreshTasks();
+})
+
+renderProjects(projects, currentProject, (selectedProject) => {
+  currentProject = selectedProject;
+  refreshTasks();
 });
 
-const myWorkTodo2 = createTodo({
-  title: "Attend Teams Meeting",
-  description: "Attend Teams online meeting to talk about new marketing strategy at 15PM",
-  dueDate: "25-01-2026",
-  priority: "High"
-})
-
-defaultWorkProject.addTodo(myWorkTodo1);
-defaultWorkProject.addTodo(myWorkTodo2);
-
-const myGeneralTodo1 = createTodo({
-  title: "Wash White Clothes",
-  description: "Wash white colored clothes in the washing machine",
-  dueDate: "14-01-2026",
-  priority: "Medium"
-})
-
-const myGeneralTodo2 = createTodo({
-  title: "Prepare Week Meal",
-  description: "Cook meal for the week and add it into containers that later go into the fridge",
-  dueDate: "14-01-2026",
-  priority: "High"
-})
-
-generalProject.addTodo(myGeneralTodo1);
-generalProject.addTodo(myGeneralTodo2);
-
-projects.push(generalProject);
-projects.push(defaultWorkProject);
-
-renderProjects(projects, generalProject);
-renderTodos(generalProject);
-
-
-
-
+// Start the App
+refreshTasks();
 
