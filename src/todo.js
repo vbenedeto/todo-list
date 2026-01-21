@@ -8,4 +8,3 @@ export function createTodo({ title, description, dueDate, priority }) {
     id: crypto.randomUUID(),
   };
 }
-

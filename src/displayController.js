@@ -1,26 +1,39 @@
 
-export function renderProjects(projects, activeProject, onProjectSelect) {
+export function renderProjects({ projects, activeProject, onSelect, onDelete }) {
   const projectMenu = document.getElementById("projects-menu");
   projectMenu.textContent = "";
 
   projects.forEach((project) => {
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("btn-container");
+
     const projectBtn = document.createElement("button");
     projectBtn.textContent = project.name;
     projectBtn.classList.add("project-btn");
+
+    const deleteProjectBtn = document.createElement("button");
+    deleteProjectBtn.textContent = "🗑️";
+
+    btnContainer.append(projectBtn, deleteProjectBtn);
 
     if (activeProject && project.name === activeProject.name) {
       projectBtn.classList.add("active-project");
     }
 
-    projectMenu.appendChild(projectBtn);
+    projectMenu.appendChild(btnContainer);
 
     projectBtn.addEventListener("click", () => {
       const allBtns = document.querySelectorAll(".project-btn");
       allBtns.forEach(btn => btn.classList.remove("active-project"));
       projectBtn.classList.add("active-project");
 
-      onProjectSelect(project);
+      onSelect(project);
     });
+
+    deleteProjectBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      onDelete(project);
+    })
   });
   return projects;
 }
@@ -28,6 +41,12 @@ export function renderProjects(projects, activeProject, onProjectSelect) {
 export function renderTodos(project, onDelete) {
   const todoContainer = document.getElementById("todos-display");
   todoContainer.textContent = "";
+
+  if (!project) {
+    todoContainer.innerHTML = "<h2>No projects left! Add one to start.</h2>";
+
+    return;
+  }
 
   const projectTitle = document.createElement("h2");
   projectTitle.textContent = project.name;
@@ -58,4 +77,14 @@ export function setupModal() {
   openModalBtn.addEventListener("click", () => {
     dialog.showModal();
   })
+}
+
+export function toggleAddTaskButton(visible) {
+  const addTaskBtn = document.getElementById("add-todo");
+
+  if (visible) {
+    addTaskBtn.style.display = "block";
+  } else {
+    addTaskBtn.style.display = "none";
+  }
 }
