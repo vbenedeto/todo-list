@@ -13,6 +13,12 @@ export function createProject(name) {
       if (index !== -1) {
         todos.splice(index, 1);
       }
-    }
+    },
+    updateTodo(todoId, updatedData) {
+      const todo = todos.find(t => t.id === todoId);
+      if (todo) {
+        Object.assign(todo, updatedData);
+      }
+    },
   };
 } 

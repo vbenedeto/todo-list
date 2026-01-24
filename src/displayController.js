@@ -1,3 +1,4 @@
+import { format, parseISO } from "date-fns";
 
 export function renderProjects({ projects, activeProject, onSelect, onDelete }) {
   const projectMenu = document.getElementById("projects-menu");
@@ -38,7 +39,7 @@ export function renderProjects({ projects, activeProject, onSelect, onDelete }) 
   return projects;
 }
 
-export function renderTodos(project, onDelete) {
+export function renderTodos(project, onDelete, onEdit) {
   const todoContainer = document.getElementById("todos-display");
   todoContainer.textContent = "";
 
@@ -56,24 +57,34 @@ export function renderTodos(project, onDelete) {
     const todoCard = document.createElement("div");
     todoCard.classList.add("todo-card");
 
-    todoCard.innerHTML = `<h3>${todo.title}</h3> <p>${todo.description}</p> <p>${todo.dueDate}</p> <p>${todo.priority}</p>`;
+    const displayDate = format(parseISO(todo.dueDate), "dd-MM-yyyy");
+
+    todoCard.innerHTML = `<h3>${todo.title}</h3> <p>${todo.description}</p> <p>${displayDate}</p> <p>${todo.priority}</p>`;
 
     const deleteTodoBtn = document.createElement("button");
     deleteTodoBtn.textContent = "Delete";
+
+    const editTodoBtn = document.createElement("button");
+    editTodoBtn.textContent = "Edit";
 
     deleteTodoBtn.addEventListener("click", () => {
       onDelete(todo.id);
     })
 
+    editTodoBtn.addEventListener("click", () => {
+      onEdit(todo);
+    })
+
     todoCard.appendChild(deleteTodoBtn);
+    todoCard.appendChild(editTodoBtn);
     todoContainer.appendChild(todoCard);
   });
 }
 
-export function setupModal(dialogId, openBtnId, closeBtnId) {
-  const dialog = document.getElementById(dialogId);
-  const openBtn = document.getElementById(openBtnId);
-  const closeBtn = document.getElementById(closeBtnId);
+export function setupModal() {
+  const dialog = document.getElementById("project-dialog");
+  const openBtn = document.getElementById("add-project");
+  const closeBtn = document.getElementById("project-cancel-btn");
 
   openBtn.addEventListener("click", () => {
     dialog.showModal();
@@ -84,6 +95,13 @@ export function setupModal(dialogId, openBtnId, closeBtnId) {
   });
 }
 
+export function bindAddTaskButton(onOpen) {
+  const addTaskBtn = document.getElementById("add-todo");
+  addTaskBtn.addEventListener("click", () => {
+    onOpen();
+  })
+}
+
 export function toggleAddTaskButton(visible) {
   const addTaskBtn = document.getElementById("add-todo");
 
@@ -92,4 +110,36 @@ export function toggleAddTaskButton(visible) {
   } else {
     addTaskBtn.style.display = "none";
   }
+}
+
+export function openTodoModal(todo = null) {
+  const dialog = document.getElementById("todo-dialog");
+  const form = document.getElementById("todo-form");
+  const modalTitle = document.querySelector(".todo-form__title");
+  const submitBtn = document.getElementById("todo-submit-btn");
+
+  const titleInput = document.getElementById("todo-title");
+  const descriptionInput = document.getElementById("todo-description");
+  const dueDateInput = document.getElementById("todo-date");
+  const priorityInput = document.getElementById("todo-priority");
+
+  if (todo) {
+    modalTitle.textContent = "Edit Task";
+    submitBtn.textContent = "Save Changes";
+    form.dataset.editId = todo.id;
+
+    titleInput.value = todo.title;
+    descriptionInput.value = todo.description;
+    dueDateInput.value = format(todo.dueDate, "yyyy-MM-dd");
+    priorityInput.value = todo.priority;
+
+  } else {
+    modalTitle.textContent = "New Task";
+    submitBtn.textContent = "Add Todo";
+    delete form.dataset.editId;
+
+    form.reset();
+  }
+
+  dialog.showModal();
 }

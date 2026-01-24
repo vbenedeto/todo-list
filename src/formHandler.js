@@ -11,10 +11,12 @@ export function initTodoForm(onSuccess) {
       description: document.getElementById("todo-description").value,
       dueDate: document.getElementById("todo-date").value,
       priority: document.getElementById("todo-priority").value,
+      id: form.dataset.editId
     };
 
     onSuccess(formData);
-
+    
+    delete form.dataset.editId;
     form.reset();
     dialog.close();
   });
