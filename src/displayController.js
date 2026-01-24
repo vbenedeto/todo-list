@@ -70,13 +70,18 @@ export function renderTodos(project, onDelete) {
   });
 }
 
-export function setupModal() {
-  const dialog = document.getElementById("todo-dialog");
-  const openModalBtn = document.getElementById("add-todo");
+export function setupModal(dialogId, openBtnId, closeBtnId) {
+  const dialog = document.getElementById(dialogId);
+  const openBtn = document.getElementById(openBtnId);
+  const closeBtn = document.getElementById(closeBtnId);
 
-  openModalBtn.addEventListener("click", () => {
+  openBtn.addEventListener("click", () => {
     dialog.showModal();
-  })
+  });
+
+  closeBtn.addEventListener("click", () => {
+    dialog.close();
+  });
 }
 
 export function toggleAddTaskButton(visible) {

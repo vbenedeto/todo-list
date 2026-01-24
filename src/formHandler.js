@@ -25,3 +25,28 @@ export function initTodoForm(onSuccess) {
     dialog.close();
   })
 }
+
+export function initProjectForm(onSuccess) {
+  const dialog = document.getElementById("project-dialog");
+  const form = document.getElementById("project-form");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const formData = {
+      name: document.getElementById("project-name-input").value,
+    };
+
+    onSuccess(formData);
+
+    form.reset();
+    dialog.close();
+  });
+
+  const cancelBtn = document.getElementById("project-cancel-btn");
+  cancelBtn.addEventListener("click", () => {
+    form.reset();
+    dialog.close();
+  })
+
+}
