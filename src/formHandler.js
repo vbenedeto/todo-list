@@ -7,10 +7,10 @@ export function initTodoForm(onSuccess) {
     e.preventDefault();
 
     const formData = {
-      title: document.getElementById("todoTitle").value,
-      description: document.getElementById("todoDescription").value,
-      dueDate: document.getElementById("todoDueDate").value,
-      priority: document.getElementById("todoPriority").value,
+      title: document.getElementById("todo-title").value,
+      description: document.getElementById("todo-description").value,
+      dueDate: document.getElementById("todo-date").value,
+      priority: document.getElementById("todo-priority").value,
     };
 
     onSuccess(formData);
@@ -19,7 +19,7 @@ export function initTodoForm(onSuccess) {
     dialog.close();
   });
 
-  const cancelBtn = document.getElementById("cancel-btn");
+  const cancelBtn = document.getElementById("todo-cancel-btn");
   cancelBtn.addEventListener("click", () => {
     form.reset();
     dialog.close();
