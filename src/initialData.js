@@ -8,28 +8,28 @@ export function getInitialProjects() {
   const generalTodo1 = createTodo({
     title: "Wash White Clothes",
     description: "Wash white colored clothes in the washing machine",
-    dueDate: "14-01-2026",
+    dueDate: "2026-01-14",
     priority: "Medium"
   });
 
   const generalTodo2 = createTodo({
     title: "Prepare Week Meal",
     description: "Cook meal for the week and add it into containers that later go into the fridge",
-    dueDate: "14-01-2026",
+    dueDate: "2026-01-10",
     priority: "High"
   });
 
   const workTodo1 = createTodo({
     title: "Finish Odin Project",
     description: "Complete the Todo List assignment",
-    dueDate: "20-01-2026",
+    dueDate: "2026-01-20",
     priority: "High"
   });
 
   const workTodo2 = createTodo({
     title: "Attend Teams Meeting",
     description: "Attend Teams online meeting to talk about new marketing strategy at 15PM",
-    dueDate: "25-01-2026",
+    dueDate: "2026-01-25",
     priority: "High"
   })
 

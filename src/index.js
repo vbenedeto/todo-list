@@ -1,6 +1,6 @@
 import './styles.css';
 import { createTodo } from "./todo";
-import { renderProjects, renderTodos, setupModal, toggleAddTaskButton } from "./displayController";
+import { bindAddTaskButton, openTodoModal, renderProjects, renderTodos, setupModal, toggleAddTaskButton } from "./displayController";
 import { initProjectForm, initTodoForm } from './formHandler';
 import { getInitialProjects } from './initialData';
 import { createProject } from './project';
@@ -42,7 +42,9 @@ function refreshUI() {
     onDelete: handleDeleteProject
   });
 
-  renderTodos(currentProject, handleDeleteTodo);
+  renderTodos(currentProject, handleDeleteTodo, (todo) => {
+    openTodoModal(todo);
+  });
 
   if (!currentProject) {
     toggleAddTaskButton(false);
@@ -52,18 +54,23 @@ function refreshUI() {
 }
 
 // Initialization 
-setupModal("todo-dialog", "add-todo", "todo-cancel-btn");
-
 setupModal("project-dialog", "add-project", "project-cancel-btn");
 
+bindAddTaskButton(() => {
+  openTodoModal();
+})
+
 initTodoForm((formData) => {
-  if (!currentProject) {
-    alert("Please create a project first!");
-    return;
+  const { id, ...data } = formData;
+
+  if (id) {
+    currentProject.updateTodo(id, data);
+  } else {
+    if (!currentProject) return alert("Please create a project first!");
+    const newTodo = createTodo(formData);
+    currentProject.addTodo(newTodo); 
   }
 
-  const newTodo = createTodo(formData);
-  currentProject.addTodo(newTodo);
   refreshUI();
 })
 
