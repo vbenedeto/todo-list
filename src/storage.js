@@ -4,7 +4,6 @@ import { createTodo } from "./todo";
 export function storeProjects(projects) {
   const jsonData = JSON.stringify(projects);
   localStorage.setItem("projectsData", jsonData);
-  console.log(jsonData);
 }
 
 export function loadProjects(defaultProjects) {
