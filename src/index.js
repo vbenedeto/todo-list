@@ -4,9 +4,11 @@ import { bindAddTaskButton, openTodoModal, renderProjects, renderTodos, setupMod
 import { initProjectForm, initTodoForm } from './formHandler';
 import { getInitialProjects } from './initialData';
 import { createProject } from './project';
+import { loadProjects, storeProjects } from './storage';
 
 // State
-const projects = getInitialProjects();
+const defaultData =  getInitialProjects();
+let projects = loadProjects(defaultData);
 let currentProject = projects[0];
 
 // Handlers
@@ -51,6 +53,7 @@ function refreshUI() {
   } else {
     toggleAddTaskButton(true);
   }
+  storeProjects(projects);
 }
 
 // Initialization 
@@ -83,4 +86,3 @@ initProjectForm((formData) => {
 
 // Start the App
 refreshUI();
-
