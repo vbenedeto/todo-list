@@ -5,28 +5,28 @@ export function renderProjects({ projects, activeProject, onSelect, onDelete }) 
   projectMenu.textContent = "";
 
   projects.forEach((project) => {
-    const btnContainer = document.createElement("div");
-    btnContainer.classList.add("btn-container");
+    const projectItem = document.createElement("div");
+    projectItem.classList.add("project-list__item");
 
     const projectBtn = document.createElement("button");
     projectBtn.textContent = project.name;
-    projectBtn.classList.add("project-btn");
+    projectBtn.classList.add("project-list__btn-select");
 
     const deleteProjectBtn = document.createElement("button");
     deleteProjectBtn.textContent = "🗑️";
-
-    btnContainer.append(projectBtn, deleteProjectBtn);
+    deleteProjectBtn.classList.add("project-list__btn-delete");
 
     if (activeProject && project.name === activeProject.name) {
-      projectBtn.classList.add("active-project");
+      projectBtn.classList.add("project-list__btn-select--active");
     }
 
-    projectMenu.appendChild(btnContainer);
+    projectItem.append(projectBtn, deleteProjectBtn);
+    projectMenu.appendChild(projectItem);
 
     projectBtn.addEventListener("click", () => {
-      const allBtns = document.querySelectorAll(".project-btn");
-      allBtns.forEach(btn => btn.classList.remove("active-project"));
-      projectBtn.classList.add("active-project");
+      const allBtns = document.querySelectorAll(".project-list__btn-select");
+      allBtns.forEach(btn => btn.classList.remove("project-list__button--active"));
+      projectBtn.classList.add("project-list__button--active");
 
       onSelect(project);
     });
@@ -83,7 +83,7 @@ export function renderTodos(project, onDelete, onEdit) {
 
 export function setupModal() {
   const dialog = document.getElementById("project-dialog");
-  const openBtn = document.getElementById("add-project");
+  const openBtn = document.getElementById("add-project-btn");
   const closeBtn = document.getElementById("project-cancel-btn");
 
   openBtn.addEventListener("click", () => {
