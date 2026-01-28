@@ -86,7 +86,8 @@ header {
   flex-direction: column;
   gap: 30px;
   padding: 30px 20px;
-  border: 2px solid #dce0e4;;
+  border: 2px solid #dce0e4;
+  ;
   background-color: var(--bg-sidebar);
 }
 
@@ -155,15 +156,114 @@ header {
 }
 
 /* TODOS */
+
 #todos-display {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   padding: 30px;
-  align-self: center;
+}
+
+.project-title {
+  font-size: 30px;
+  padding-bottom: 30px;
+  text-transform: capitalize;
+}
+
+.todo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.todo-grid__empty-state {
+  font-size: 20px; 
+  color: #53575f;
 }
 
 .todo-card {
-  border: 2px solid black;
-  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+  border-radius: 8px;
+  padding: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  gap: 10px;
+}
+
+.todo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.todo-card__title {
+  font-size: 25px;
+}
+
+.todo-card__description {
+  flex-grow: 1;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.todo-card__date {
+  color: rgb(113, 110, 110);
+  font-size: 15px;
+  opacity: 0.7;
+}
+
+.todo-card__priority {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+.todo-card[data-priority="High"] .todo-card__priority {
+  color: #ef4444;
+}
+
+.todo-card[data-priority="High"] {
+  border-left: 6px solid #ef4444;
+}
+
+.todo-card[data-priority="Medium"] .todo-card__priority {
+  color: #f59e0b;
+}
+
+.todo-card[data-priority="Medium"] {
+  border-left: 6px solid #f59e0b;
+}
+
+.todo-card[data-priority="Low"] .todo-card__priority {
+  color: #10b981;
+}
+
+.todo-card[data-priority="Low"] {
+  border-left: 6px solid #10b981;
+}
+
+.todo-card__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.todo-card__actions button {
+  flex: 1;
+  padding: 8px;
+}
+
+.todo-card__delete:hover {
+  background-color: #f9fafb;
+  color: #dc2626;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.todo-card__edit:hover {
+  background-color: #f9fafb;
+  color: #0284c7;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
 }
