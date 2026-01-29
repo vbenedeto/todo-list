@@ -1,6 +1,4 @@
 :root {
-  /* Backgrounds */
-  --bg-main: #ffffff;
   /* Main todo section */
   --bg-sidebar: #f8f9fa;
   /* Light grey for sidebar */
@@ -73,7 +71,7 @@ button {
 
 /* HEADER */
 header {
-  padding: 30px;
+  padding: 30px 30px 0;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -158,7 +156,8 @@ header {
 /* TODOS */
 
 #todos-display {
-  padding: 30px;
+  padding: 26px 30px;
+  ;
 }
 
 .project-title {
@@ -175,7 +174,7 @@ header {
 }
 
 .todo-grid__empty-state {
-  font-size: 20px; 
+  font-size: 20px;
   color: #53575f;
 }
 
@@ -266,4 +265,117 @@ header {
   color: #0284c7;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   transform: translateY(-2px);
+}
+
+/* DIALOGS */
+
+dialog {
+  position: fixed;
+  margin: auto;
+  border: none;
+  border-radius: 12px;
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+dialog[open] {
+  animation: modal-appear 0.3s ease-out;
+}
+
+@keyframes modal-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+#project-dialog {
+  max-width: 340px;
+}
+
+/* DIALOG FORM */
+
+#todo-form,
+.todo-form__field,
+#project-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.todo-form__field {
+  gap: 8px;
+}
+
+.todo-form__field label,
+.project-form__body label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+textarea {
+  padding: 15px;
+  resize: none;
+}
+
+.todo-form__field input:focus,
+.todo-form__field textarea:focus,
+.todo-form__field select:focus,
+.project-form__body input:focus {
+  outline: none;
+  border: 2px solid #434343; 
+}
+
+.todo-form__field input,
+.todo-form__field textarea,
+.todo-form__field select, .project-form__body input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 16px;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.todo-form__actions,
+.project-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+#project-form {
+  gap: 15px;
+}
+
+.project-form__body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-form__body label {
+  font-size: 16px;
+}
+
+.project-form__body input {
+  padding: 5px 10px;
+  flex: 1;
+  border-radius: 8px;
+  cursor: pointer;
 }

@@ -30,19 +30,21 @@
           <label for="todo-title">
             Title
           </label>
-          <input type="text" name="title" id="todo-title" class="todo-form__input" required>
+          <input type="text" name="title" id="todo-title" class="todo-form__input" minlength="1" maxlength="40"
+            autofocus required>
         </div>
 
         <div class="todo-form__field">
           <label for="todo-description">
             Description
           </label>
-          <input type="text" name="description" id="todo-description" class="todo-form__input">
+          <textarea name="description" id="todo-description" rows="4" cols="2" class="todo-form__input"
+            maxlength="300"></textarea>
         </div>
 
         <div class="todo-form__field">
           <label for="todo-date">Due Date</label>
-          <input type="date" name="dueDate" id="todo-date" class="todo-form__input">
+          <input type="date" name="dueDate" id="todo-date" class="todo-form__input" required>
         </div>
 
         <div class="todo-form__field">
@@ -67,16 +69,14 @@
     <dialog id="project-dialog">
       <form id="project-form">
 
-        <header class="project-form__header">
-          <h3 class="project-form__title">New Project</h3>
-        </header>
+        <h3 class="project-form__title">New Project</h3>
 
         <div class="project-form__body">
           <label for="project-name-input" class="project-form__label">
-            New Project Name
+            Name
           </label>
           <input type="text" id="project-name-input" class="project-form__input" placeholder="e.g. Vacation Plans"
-            required>
+            maxlength="30" required>
         </div>
 
         <div class="project-form__actions">
