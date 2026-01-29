@@ -5,28 +5,28 @@ export function renderProjects({ projects, activeProject, onSelect, onDelete }) 
   projectMenu.textContent = "";
 
   projects.forEach((project) => {
-    const btnContainer = document.createElement("div");
-    btnContainer.classList.add("btn-container");
+    const projectItem = document.createElement("div");
+    projectItem.classList.add("project-list__item");
 
     const projectBtn = document.createElement("button");
     projectBtn.textContent = project.name;
-    projectBtn.classList.add("project-btn");
+    projectBtn.classList.add("project-list__btn-select");
 
     const deleteProjectBtn = document.createElement("button");
     deleteProjectBtn.textContent = "🗑️";
-
-    btnContainer.append(projectBtn, deleteProjectBtn);
+    deleteProjectBtn.classList.add("project-list__btn-delete");
 
     if (activeProject && project.name === activeProject.name) {
-      projectBtn.classList.add("active-project");
+      projectBtn.classList.add("project-list__btn-select--active");
     }
 
-    projectMenu.appendChild(btnContainer);
+    projectItem.append(projectBtn, deleteProjectBtn);
+    projectMenu.appendChild(projectItem);
 
     projectBtn.addEventListener("click", () => {
-      const allBtns = document.querySelectorAll(".project-btn");
-      allBtns.forEach(btn => btn.classList.remove("active-project"));
-      projectBtn.classList.add("active-project");
+      const allBtns = document.querySelectorAll(".project-list__btn-select");
+      allBtns.forEach(btn => btn.classList.remove("project-list__button--active"));
+      projectBtn.classList.add("project-list__button--active");
 
       onSelect(project);
     });
@@ -39,33 +39,65 @@ export function renderProjects({ projects, activeProject, onSelect, onDelete }) 
   return projects;
 }
 
+function renderEmtpyState(container, message) {
+  const emptyMessage = document.createElement("div");
+  emptyMessage.classList.add("todo-grid__empty-state");
+  emptyMessage.textContent = message;
+  container.appendChild(emptyMessage);
+}
+
 export function renderTodos(project, onDelete, onEdit) {
-  const todoContainer = document.getElementById("todos-display");
-  todoContainer.textContent = "";
+  const projectTitle = document.querySelector(".project-title");
+  const todoGridContainer = document.querySelector(".todo-grid");
+  todoGridContainer.textContent = "";
 
   if (!project) {
-    todoContainer.innerHTML = "<h2>No projects left! Add one to start.</h2>";
-
+    projectTitle.textContent = "Get Startet!";
+    renderEmtpyState(todoGridContainer, "No projects left! Add one to start.")
     return;
   }
 
-  const projectTitle = document.createElement("h2");
   projectTitle.textContent = project.name;
-  todoContainer.appendChild(projectTitle);
+
+  if (project.todos.length === 0){
+    renderEmtpyState(todoGridContainer, "This project is empty. Time to add some tasks!");
+    return;
+  }
 
   project.todos.forEach((todo) => {
     const todoCard = document.createElement("div");
     todoCard.classList.add("todo-card");
+    todoCard.dataset.priority = todo.priority;
 
-    const displayDate = format(parseISO(todo.dueDate), "dd-MM-yyyy");
+    const todoTitle = document.createElement("h3");
+    todoTitle.textContent = todo.title;
+    todoTitle.classList.add("todo-card__title");
 
-    todoCard.innerHTML = `<h3>${todo.title}</h3> <p>${todo.description}</p> <p>${displayDate}</p> <p>${todo.priority}</p>`;
+    const todoDescription = document.createElement("p");
+    todoDescription.textContent = todo.description;
+    todoDescription.classList.add("todo-card__description");
+
+    const todoDueDate = document.createElement("p");
+    const formatedDate = format(parseISO(todo.dueDate), "dd-MM-yyyy");
+    todoDueDate.innerHTML = `📅 ${formatedDate}`;
+    todoDueDate.classList.add("todo-card__date")
+
+    const todoPriority = document.createElement("p");
+    todoPriority.textContent = todo.priority;
+    todoPriority.classList.add("todo-card__priority");
 
     const deleteTodoBtn = document.createElement("button");
     deleteTodoBtn.textContent = "Delete";
+    deleteTodoBtn.classList.add("todo-card__delete");
 
     const editTodoBtn = document.createElement("button");
     editTodoBtn.textContent = "Edit";
+    editTodoBtn.classList.add("todo-card__edit");
+
+    const actionBtnsContainer = document.createElement("div");
+    actionBtnsContainer.appendChild(deleteTodoBtn);
+    actionBtnsContainer.appendChild(editTodoBtn);
+    actionBtnsContainer.classList.add("todo-card__actions");
 
     deleteTodoBtn.addEventListener("click", () => {
       onDelete(todo.id);
@@ -75,15 +107,18 @@ export function renderTodos(project, onDelete, onEdit) {
       onEdit(todo);
     })
 
-    todoCard.appendChild(deleteTodoBtn);
-    todoCard.appendChild(editTodoBtn);
-    todoContainer.appendChild(todoCard);
+    todoCard.appendChild(todoTitle);
+    todoCard.appendChild(todoDescription);
+    todoCard.appendChild(todoDueDate);
+    todoCard.appendChild(todoPriority);
+    todoCard.appendChild(actionBtnsContainer);
+    todoGridContainer.appendChild(todoCard);
   });
 }
 
 export function setupModal() {
   const dialog = document.getElementById("project-dialog");
-  const openBtn = document.getElementById("add-project");
+  const openBtn = document.getElementById("add-project-btn");
   const closeBtn = document.getElementById("project-cancel-btn");
 
   openBtn.addEventListener("click", () => {
