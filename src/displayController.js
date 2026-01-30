@@ -1,4 +1,5 @@
 import { format, parseISO } from "date-fns";
+import { showConfirm } from "./confirmationHandler";
 
 export function renderProjects({ projects, activeProject, onSelect, onDelete }) {
   const projectMenu = document.getElementById("projects-menu");
@@ -31,9 +32,15 @@ export function renderProjects({ projects, activeProject, onSelect, onDelete }) 
       onSelect(project);
     });
 
-    deleteProjectBtn.addEventListener("click", (e) => {
+    deleteProjectBtn.addEventListener("click", async (e) => {
       e.stopPropagation();
-      onDelete(project);
+      e.preventDefault();
+
+      const userConfirmed = await showConfirm("Delete Project", "Are you sure? This Project and its Tasks will be gone forever.");
+
+      if (userConfirmed) {
+        onDelete(project);
+      }
     })
   });
   return projects;
@@ -59,7 +66,7 @@ export function renderTodos(project, onDelete, onEdit) {
 
   projectTitle.textContent = project.name;
 
-  if (project.todos.length === 0){
+  if (project.todos.length === 0) {
     renderEmtpyState(todoGridContainer, "This project is empty. Time to add some tasks!");
     return;
   }
@@ -99,8 +106,15 @@ export function renderTodos(project, onDelete, onEdit) {
     actionBtnsContainer.appendChild(editTodoBtn);
     actionBtnsContainer.classList.add("todo-card__actions");
 
-    deleteTodoBtn.addEventListener("click", () => {
-      onDelete(todo.id);
+    deleteTodoBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const userConfirmed = await showConfirm("Delete Task", "Are you sure? This task will be gone forever.");
+
+      if (userConfirmed) {
+        onDelete(todo.id);
+      }
     })
 
     editTodoBtn.addEventListener("click", () => {
