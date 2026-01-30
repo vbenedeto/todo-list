@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TODOS</title>
+<script defer src="main.js"></script></head>
+
+<body>
+  <div id="main-grid">
+    <aside id="sidebar">
+      <div class="project-list__title-container">
+        <h1>Projects</h1>
+        <button id="add-project-btn" class="btn btn--primary">➕</button>
+      </div>
+      <div id="projects-menu"></div>
+    </aside>
+
+    <header>
+      <h1>My Todos</h1>
+      <button id="add-todo" class="btn btn--primary">Add Task</button>
+    </header>
+
+    <dialog id="todo-dialog">
+      <form id="todo-form">
+        <h3 class="todo-form__title">New Task</h3>
+
+        <div class="todo-form__field">
+          <label for="todo-title">
+            Title
+          </label>
+          <input type="text" name="title" id="todo-title" class="todo-form__input" minlength="1" maxlength="40"
+            autofocus required>
+        </div>
+
+        <div class="todo-form__field">
+          <label for="todo-description">
+            Description
+          </label>
+          <textarea name="description" id="todo-description" rows="4" cols="2" class="todo-form__input"
+            maxlength="300"></textarea>
+        </div>
+
+        <div class="todo-form__field">
+          <label for="todo-date">Due Date</label>
+          <input type="date" name="dueDate" id="todo-date" class="todo-form__input" required>
+        </div>
+
+        <div class="todo-form__field">
+          <label for="todo-priority">
+            Priority
+          </label>
+          <select name="priority" id="todo-priority" class="todo-form__select">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div class="todo-form__actions">
+          <button type="button" id="todo-cancel-btn" class="btn btn--secondary">Cancel</button>
+          <button type="submit" id="todo-submit-btn" class="btn btn--primary">Add Todo</button>
+        </div>
+
+      </form>
+    </dialog>
+
+    <dialog id="project-dialog">
+      <form id="project-form">
+
+        <h3 class="project-form__title">New Project</h3>
+
+        <div class="project-form__body">
+          <label for="project-name-input" class="project-form__label">
+            Name
+          </label>
+          <input type="text" id="project-name-input" class="project-form__input" placeholder="e.g. Vacation Plans"
+            maxlength="30" required>
+        </div>
+
+        <div class="project-form__actions">
+          <button type="button" id="project-cancel-btn" class="btn btn--secondary">Cancel</button>
+          <button type="submit" id="project-submit-btn" class="btn btn--primary">Add Project</button>
+        </div>
+
+      </form>
+    </dialog>
+
+    <dialog id="confirmation-dialog">
+      <div class="confirmation-content">
+        <h2 id="confirmation-title"></h2>
+        <p id="confirmation-message"></p>
+        <div class="confirmation-actions">
+          <button id="confirm-cancel" class="btn btn--secondary">Cancel</button>
+          <button id="confirm-delete">Delete</button>
+        </div>
+      </div>
+    </dialog>
+
+    <main id="todos-display">
+      <h2 class="project-title"></h2>
+
+      <div class="todo-grid">
+      </div>
+    </main>
+  </div>
+</body>
+
+</html>
