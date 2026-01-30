@@ -33,7 +33,6 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
-  /* background-color: rgb(255, 255, 255); */
 }
 
 button {
@@ -55,9 +54,20 @@ button {
 }
 
 .btn--secondary {
-  background-color: var(--btn-secondary-bg);
-  color: var(--btn-secondary-text);
-  border: 1px solid var(--border-color);
+  background-color: transparent;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn--secondary:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #1e293b;
 }
 
 /* MAIN GRID */
@@ -123,11 +133,16 @@ header {
   flex: 1;
   text-align: left;
   padding: 8px 12px;
+  padding: 10px 15px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  background-color: transparent;
 }
 
 .project-list__btn-select:hover {
-  background-color: #fee2e2;
-  color: black;
+  background-color: #00000008;
+  border-left-color: #000;
+  color: #000;
 }
 
 .project-list__btn-select--active {
@@ -191,7 +206,7 @@ header {
 
 .todo-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 20px #0000001a;
   cursor: pointer;
 }
 
@@ -206,7 +221,7 @@ header {
 }
 
 .todo-card__date {
-  color: rgb(113, 110, 110);
+  color: #716e6e;
   font-size: 15px;
   opacity: 0.7;
 }
@@ -253,17 +268,18 @@ header {
   padding: 8px;
 }
 
-.todo-card__delete:hover {
+.todo-card__delete:hover,
+#confirm-delete:hover {
   background-color: #f9fafb;
   color: #dc2626;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 5px #0000000d;
   transform: translateY(-2px);
 }
 
 .todo-card__edit:hover {
   background-color: #f9fafb;
   color: #0284c7;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 5px #0000000d;
   transform: translateY(-2px);
 }
 
@@ -277,7 +293,7 @@ dialog {
   padding: 30px;
   width: 90%;
   max-width: 450px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 20px 25px -5px #0000001a, 0 10px 10px -5px #0000000a;
 }
 
 dialog[open] {
@@ -297,7 +313,7 @@ dialog[open] {
 }
 
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: #00000066;
   backdrop-filter: blur(4px);
 }
 
@@ -336,12 +352,13 @@ textarea {
 .todo-form__field select:focus,
 .project-form__body input:focus {
   outline: none;
-  border: 2px solid #434343; 
+  border: 2px solid #434343;
 }
 
 .todo-form__field input,
 .todo-form__field textarea,
-.todo-form__field select, .project-form__body input {
+.todo-form__field select,
+.project-form__body input {
   padding: 10px 12px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -352,7 +369,8 @@ textarea {
 }
 
 .todo-form__actions,
-.project-form__actions {
+.project-form__actions,
+.confirmation-actions {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
@@ -378,4 +396,18 @@ textarea {
   flex: 1;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.confirmation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#confirmation-message {
+  font-size: 18px;
+}
+
+.confirmation-actions {
+  justify-content: center;
 }
